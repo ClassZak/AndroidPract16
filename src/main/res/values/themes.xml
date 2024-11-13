@@ -13,4 +13,12 @@
         <item name="android:colorBackground">@color/colorPrimaryLight</item> <!-- Цвет фона -->
     </style>
 
+    <style name="AppThemeSecondary" parent="Base.Theme.AndroidPract16Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorSecondary</item>
+        <item name="colorPrimaryDark">@color/colorSecondaryDark</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:colorBackground">@color/colorSecondary</item>
+    </style>
+
 </resources>
