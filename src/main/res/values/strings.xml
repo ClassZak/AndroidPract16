@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidPract16</string>
+    <string name="changeToDark">Изменить на тёмную тему</string>
+    <string name="changeToLight">Изменить на светлую тему</string>
 </resources>

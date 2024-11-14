@@ -1,27 +1,48 @@
 package com.example.androidpract16
 
-import android.app.Activity
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Switch
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.constraintlayout.widget.ConstraintSet.Layout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.security.AccessController.getContext
+
 
 class MainActivity : AppCompatActivity() {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        menu?.getItem(R.id.change_theme)?.setTitle(if(isDarkMode(this))
+            R.string.changeToLight;
+        else
+            R.string.changeToDark)
+
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean{
+
+        when(item.itemId){
+            R.id.about_menu_item -> title = "О программе"
+            R.id.change_theme -> {
+                changeTheme(this)
+                if(isDarkMode(this))
+                    item.setTitle(R.string.changeToLight)
+                else
+                    item.setTitle(R.string.changeToDark)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         try {
             super.onCreate(savedInstanceState)
-
-
-            //installNewTheme()
-
             enableEdgeToEdge()
             setContentView(R.layout.activity_main)
             ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -29,48 +50,23 @@ class MainActivity : AppCompatActivity() {
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
                 insets
             }
-
-            findViewById<Switch>(R.id.switch1).setOnCheckedChangeListener{_, isChecked ->
-                if(isChecked)
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                else
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-
-            /*if(theme!=null)
-                findViewById<Switch>(R.id.switch1).isChecked=theme!=R.style.AppThemeSecondary_Light
-
-
-            findViewById<Switch>(R.id.switch1).setOnCheckedChangeListener{_, isChecked ->
-                val intent: Intent =Intent(this@MainActivity,MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-
-
-                if (theme == null) {
-                    this.theme=R.style.AppThemePrimary_Light
-                }
-                if(theme==R.style.AppThemePrimary_Light)
-                    this.theme=R.style.AppThemeSecondary_Light
-                else
-                    this.theme=R.style.AppThemePrimary_Light
-
-                intent.putExtra("theme",theme)
-
-                startActivity(intent)
-            }*/
         }
         catch (e:Exception){
             val message:Toast=Toast.makeText(this,"Ошибка\n"+e.message,Toast.LENGTH_LONG)
             message.show()
         }
     }
-    /*fun installNewTheme(){
-        val arguments:Bundle?=intent.extras
-        if(arguments!=null){
-            theme=arguments.get("theme")as Int
 
-            if(theme!=null)
-                setTheme(theme!!)
-        }
-    }*/
+    fun isDarkMode(context: Context): Boolean {
+        return context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+    }
+    fun switchChangeTheme(view: View){
+        changeTheme(this)
+    }
+    fun changeTheme(context:Context){
+        if(isDarkMode(context))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    }
 }
