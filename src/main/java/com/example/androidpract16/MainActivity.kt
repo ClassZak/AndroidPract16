@@ -1,6 +1,7 @@
 package com.example.androidpract16
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -18,26 +19,35 @@ import java.security.AccessController.getContext
 
 class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu,menu)
-        menu?.getItem(R.id.change_theme)?.setTitle(if(isDarkMode(this))
-            R.string.changeToLight;
-        else
-            R.string.changeToDark)
-
+        try{
+            menuInflater.inflate(R.menu.main_menu,menu)
+            menu?.findItem(R.id.change_theme)?.setTitle(if(isDarkMode(this))
+                R.string.changeToLight;
+            else
+                R.string.changeToDark)
+        }
+        catch (e:Exception){
+            val message:Toast=Toast.makeText(this,"Ошибка\n"+e.message,Toast.LENGTH_LONG)
+            message.show()
+        }
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean{
-
         when(item.itemId){
-            R.id.about_menu_item -> title = "О программе"
+            R.id.about_menu_item -> startAboutActity()
             R.id.change_theme -> {
                 changeTheme(this)
                 if(isDarkMode(this))
                     item.setTitle(R.string.changeToLight)
                 else
                     item.setTitle(R.string.changeToDark)
+
+                findViewById<Switch>(R.id.switch1).isChecked=isDarkMode(this)
             }
         }
+
+
+
         return super.onOptionsItemSelected(item)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +60,9 @@ class MainActivity : AppCompatActivity() {
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
                 insets
             }
+
+            val switch=findViewById<Switch>(R.id.switch1)
+            switch.isChecked=!isDarkMode(this)
         }
         catch (e:Exception){
             val message:Toast=Toast.makeText(this,"Ошибка\n"+e.message,Toast.LENGTH_LONG)
@@ -68,5 +81,9 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         else
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    }
+    fun startAboutActity(){
+        val intent:Intent=Intent(this@MainActivity,AboutActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+        startActivity(intent)
     }
 }

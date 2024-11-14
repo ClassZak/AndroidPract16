@@ -2,4 +2,9 @@
     <string name="app_name">AndroidPract16</string>
     <string name="changeToDark">Изменить на тёмную тему</string>
     <string name="changeToLight">Изменить на светлую тему</string>
+    <string name="back">Назад</string>
+    <string name="about">О программе</string>
+    <string name="app_author">"Райков Тимофей и Голуб Захар"</string>
+    <string name="app_version">"1.0.0"</string>
+    <string name="app_version_code">"0.2.0"</string>
 </resources>

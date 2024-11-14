@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="colorPrimary">#81d4fa</color>
+    <color name="colorPrimaryDark">#FF4BA3c7</color>
+    <color name="colorPrimaryLight">#FFB6FFFF</color>
+    <color name="colorSecondary">#9fa8da</color>
+    <color name="colorSecondaryDark">#6f79a8</color>
+    <color name="colorSecondaryLight">#d1d9ff</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="about">О программе</string>
+    <string name="app_author">"Райков Тимофей и Голуб Захар"</string>
+    <string name="app_name">AndroidPract16</string>
+    <string name="app_version">"1.0.0"</string>
+    <string name="app_version_code">"0.2.0"</string>
+    <string name="back">Назад</string>
+    <string name="changeToDark">Изменить на тёмную тему</string>
+    <string name="changeToLight">Изменить на светлую тему</string>
+    <style name="AppThemePrimary" parent="Base.Theme.AndroidPract16Light">
+        
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="android:colorBackground">@color/colorPrimaryLight</item> 
+    </style>
+    <style name="Base.Theme.AndroidPract16Light" parent="Theme.AppCompat.Light">
+        
+        
+    </style>
+</resources>
